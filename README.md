@@ -4,26 +4,25 @@
 
 [Notebook](Taxi_Project_1.ipynb) | [Open in Colab](https://colab.research.google.com/github/Negarkamvij/Project_1_Deep_Learning/blob/main/Taxi_Project_1.ipynb)
 
-My project investigates trip duration, data quality, and changes between March training data and May evaluation data. It also completes the January-versus-March extra credit. No prediction model is trained.
+This project studies trip duration, data quality, and differences between March reference data and May evaluation data. It includes the January-versus-March extra credit. No prediction model is trained.
 
 ## Findings
 
-- March distance-duration Spearman correlation is approximately 0.859.
-- Retained rides: January 6,320,684; March 2,969,781; May 337,572.
-- March has about 53% fewer retained records than January, with a sharp decline around mid-March in the daily chart.
-- January and March median duration: 10.50 and 10.42 minutes. Median recorded distance: 1.61 and 1.69 miles.
-- The corrected March/May TFDV run reports zero schema anomalies and validates exactly five intended fields. Distribution differences can still exist without schema anomalies.
+- All original rows are retained: January 6,405,008; March 3,007,687; May 348,415.
+- Possible data problems are flagged. Long trips are not automatically treated as errors.
+- March distance-duration Spearman correlation rounds to 0.847 both for raw recorded values and for a separate positive-duration sensitivity check.
+- March has about 53% fewer file records than January. January and March median recorded duration is 10.48 and 10.40 minutes; median distance is 1.60 and 1.67 miles.
+- Similar-distance comparisons explore pickup time and pickup zone. Location names come from TLC zone IDs and the official lookup, not GPS coordinates.
+- TFDV reports zero inferred-schema anomalies for the five selected fields. This does not mean every record is correct or that distributions are equal.
 
 ## Reproduce
 
-Download January, March, and May 2020 Yellow Taxi Parquet files from [NYC TLC](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) into `data/` beside the notebook. January downloads automatically if missing. Data files are excluded from Git.
+Run the notebook cells in order. Its setup downloads missing January, March, and May 2020 Parquet files from the official TLC source into `data/`. The zone lookup also downloads if missing. Existing local files are reused; data files are excluded from Git. Internet access is needed for downloads, and the analysis requires enough memory and disk space for millions of records.
 
-Use a compatible environment for pandas, NumPy, PyArrow, Matplotlib, seaborn, TensorFlow Data Validation, Apache Beam, and GraphViz. The notebook contains an optional pip setup cell. GraphViz also needs the system `dot` executable; install it through the operating system package manager (for example, `brew install graphviz` on macOS or `apt-get install graphviz` in Colab).
+Use compatible versions of pandas, NumPy, PyArrow, Matplotlib, seaborn, TensorFlow Data Validation, Apache Beam, and graphviz. Package-install instructions are included in the notebook. GraphViz also needs the system `dot` program, for example through `brew install graphviz` on macOS or `apt-get install graphviz` in Colab.
 
-The notebook records package versions and contains actual saved outputs for every analysis cell, including TFDV and the January extra credit. The optional package-install cell is separate from the analysis. An installed version report verifies the tools used.
+The final notebook was run from top to bottom in a new Python process using installed dependencies and existing official local data files. All 14 code cells passed, and their outputs are saved. It includes TFDV graphics, a small Beam audit of monthly row counts, and a GraphViz workflow. This verification does not guarantee compatibility with every fresh environment.
 
 ## Interpretation
 
-Cleaning limits define a selected positive-distance population. Correlation does not establish causation, and the feature ranking is descriptive rather than fitted-model importance. Recorded distance is available after the ride, so pickup-time predictions require estimated route distance. The January/March comparison does not isolate COVID effects from seasonality, route mix, or reporting changes.
-
-See [My simple study guide](Study_Guide.md) for beginner explanations and presentation practice.
+Original records remain available. Separate numeric input copies fill missing values using March medians, and target-validity indicators identify unavailable durations for future model preparation. No target values are invented and no model is trained. Correlation and group comparisons describe patterns, not causes or fitted-model importance. Recorded trip distance is a post-trip value; pickup-time predictions would need an estimated distance. The January/March comparison cannot isolate COVID effects from season, routes, and reporting differences.
