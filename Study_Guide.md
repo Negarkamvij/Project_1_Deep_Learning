@@ -4,13 +4,7 @@
 
 Imagine a huge pile of cards. Each card describes one taxi ride: when it started, when it ended, how far it went, and how many passengers it carried. I am a detective who checks the cards, fixes or excludes problem records using clear rules, makes pictures, and explains the patterns.
 
-My professor’s exact project instructions are:
-
-> Perform an explanatory data analysis (EDA) on NYC’s Yellow Taxi Trip Records from 2020. Although there will be no need to build a model based on the data provided, you are asked to look for issues in the data and find correlation among the various variables to improve ride time predictions.
-
-> Create the training dataset on data based on March of 2020, and evaluation dataset on data based on May of 2020.
-
-Source: the assignment PDF, page 1. I do not train an AI model in this assignment.
+My question is: **Which clues are related to how many minutes a ride takes?** I do not train an AI model in this assignment.
 
 ## The words I need to know
 
